@@ -92,7 +92,7 @@ app.delete("/api/notes/:id", (req, res) => {
       );
     }
   });
-  
+
   res.send("Note deleted");
 });
 
