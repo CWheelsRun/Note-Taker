@@ -29,7 +29,7 @@ app.get("/api/notes", (req, res) => {
 
 // Note submission
 app.post("/api/notes", (req, res) => {
-  const id = uuid();
+  const id = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   const { title, text } = req.body;
 
   if (title && text) {
