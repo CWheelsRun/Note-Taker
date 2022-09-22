@@ -84,7 +84,7 @@ app.delete("/api/notes/:id", (req, res) => {
 
       fs.writeFile(
         "./db/db.json",
-        JSON.stringify(savedNotes, null, 4),
+        JSON.stringify(newNotes, null, 4),
         (writeErr) =>
           writeErr
             ? console.error(writeErr)
