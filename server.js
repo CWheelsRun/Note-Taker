@@ -44,11 +44,12 @@ app.post("/api/notes", (req, res) => {
       if (err) {
         console.error(err);
       } else {
-        const parsedNotes = JSON.parse(data);
-        parsedNotes.push(newNote);
+        const savedNotes = JSON.parse(data);
+        savedNotes.push(newNote);
+
         fs.writeFile(
           "./db/db.json",
-          JSON.stringify(parsedNotes, null, 4),
+          JSON.stringify(savedNotes, null, 4),
           (writeErr) =>
             writeErr
               ? console.error(writeErr)
@@ -66,6 +67,33 @@ app.post("/api/notes", (req, res) => {
   } else {
     res.send("Error posting note");
   }
+});
+
+// Note deletion
+app.delete("/api/notes/:id", (req, res) => {
+  const id = req.params.id;
+
+  // Pull notes from db
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const savedNotes = JSON.parse(data);
+      // Remove note matching ID
+      const newNotes = savedNotes.filter((el) => el.id != id);
+
+      fs.writeFile(
+        "./db/db.json",
+        JSON.stringify(savedNotes, null, 4),
+        (writeErr) =>
+          writeErr
+            ? console.error(writeErr)
+            : console.info("Notes updated successfully")
+      );
+    }
+  });
+  
+  res.send("Note deleted");
 });
 
 // HTML
