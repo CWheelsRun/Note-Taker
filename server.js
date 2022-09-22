@@ -13,6 +13,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// API
+
+// Notes displayed
+app.get('/api/notes', (req, res) => {
+    fs.readFile('./db/db.json', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const notes = JSON.parse(data);
+            res.json(notes);
+        }
+    });
+});
+
+// HTML
+
 // Main HTML displayed
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
@@ -29,5 +45,5 @@ app.get('*', (req, res) =>
 );
 
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
+  console.log(`App listening at http://localhost:${PORT}`)
 );
