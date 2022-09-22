@@ -16,7 +16,14 @@ This is a deployed Heroku application making use of Express.js to allow a user t
 
 ## Routes
 
-### 
+### HTML Routes established
+* GET /notes returns 'notes.html'.
+* GET * returns 'index.html'.
+
+### API Routes establised
+* GET /api/notes reads the db.json file and returns all saved notes as JSON.
+* POST /api/notes receives a new note to save on the request body, adds it to the db.json file, and then returns the new note to the client. Each note has a unique id when it's saved.
+* DELETE /api/notes/:id receives a query parameter containing the id of a note to delete, removes the note with the given id property, and then rewrites the notes to the db.json file.
 
 ## Questions
 
